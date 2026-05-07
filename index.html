@@ -5,257 +5,672 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kassem Abboud | Portfolio</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #fff;
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-header {
+  :root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --surface2: #eef1f6;
+    --border: rgba(30,80,160,0.1);
+    --border-bright: rgba(30,80,160,0.25);
+    --accent: #1a5fd4;
+    --accent2: #0a9e6e;
+    --text: #0f1a2e;
+    --muted: #5a6a85;
+    --heading-font: 'Syne', sans-serif;
+    --body-font: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body-font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(30,80,160,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,80,160,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow blob */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(10,158,110,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: relative;
+    z-index: 1;
     text-align: center;
-    padding: 60px 20px;
-}
+    padding: 100px 24px 80px;
+  }
 
-h1 {
-    font-size: 42px;
-    margin: 0;
-}
-
-.subtitle {
-    color: #94a3b8;
-    margin-top: 10px;
-}
-
-.section {
-    max-width: 1000px;
-    margin: auto;
-    padding: 40px 20px;
-}
-
-h2 {
-    border-bottom: 2px solid #1e293b;
-    padding-bottom: 10px;
-}
-
-.card {
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 15px;
-}
-
-ul {
-    padding-left: 20px;
-}
-.profile-pic {
-    width: 170px;
-    height: 170px;
+  .profile-pic {
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #38bdf8;
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+    border: 2px solid var(--accent);
+    outline: 6px solid rgba(99,179,255,0.1);
+    margin-bottom: 32px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  header h1 {
+    font-family: var(--heading-font);
+    font-size: clamp(42px, 8vw, 72px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1;
+    background: linear-gradient(135deg, #0f1a2e 0%, #1a5fd4 50%, #0a9e6e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-top: 14px;
+    font-weight: 500;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section {
+    padding: 60px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ─── SECTION HEADING ─── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .section-label span {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h2 {
+    font-family: var(--heading-font);
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .card:hover {
+    border-color: var(--border-bright);
+    transform: translateY(-2px);
+  }
+
+  .card h3 {
+    font-family: var(--heading-font);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .card p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  .card p:last-of-type { margin-bottom: 0; }
+
+  /* ─── SKILLS ─── */
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .skill-tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 7px 18px;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .skill-tag:hover {
+    background: rgba(99,179,255,0.08);
+    border-color: var(--accent);
+  }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent2) 100%);
+  }
+
+  .exp-card h3 {
+    font-family: var(--heading-font);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .exp-card ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .exp-card ul li {
+    font-size: 14px;
+    color: var(--muted);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .exp-card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  /* ─── PROJECTS ─── */
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
     margin-bottom: 20px;
-}
-video, iframe {
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .project-card:hover {
+    border-color: var(--border-bright);
+    transform: translateY(-2px);
+  }
+
+  .project-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .project-card h3 {
+    font-family: var(--heading-font);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .project-number {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+
+  .project-card p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.75;
+    margin-bottom: 10px;
+  }
+
+  .tools-badge {
+    display: inline-block;
+    font-size: 12px;
+    color: #0a7a55;
+    background: rgba(10,158,110,0.08);
+    border: 1px solid rgba(10,158,110,0.2);
+    border-radius: 8px;
+    padding: 5px 12px;
+    margin-bottom: 20px;
+    letter-spacing: 0.3px;
+  }
+
+  video {
+    width: 100%;
     border-radius: 12px;
-}
+    margin-top: 10px;
+    border: 1px solid var(--border);
+  }
 
-.contact {
-    text-align: center;
-    padding: 40px;
-    background: #020617;
-}
+  .small-phone-video {
+    width: 300px;
+    display: block;
+    margin: 16px auto 0;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
 
-/* 🔥 FIXED IMAGE GRID */
-.gallery-4 {
+  /* ─── GALLERY ─── */
+  .gallery-4 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-}
+    margin-top: 16px;
+  }
 
-.gallery-4 img {
+  .gallery-4 img {
     width: 100%;
-    aspect-ratio: 9 / 16;   /* phone screen ratio */
+    aspect-ratio: 9/16;
     object-fit: cover;
-    border-radius: 10px;
-}
-.small-phone-video {
-    width: 300px;
-    border-radius: 20px;
-    display: block;
-    margin: auto;
-}
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: transform 0.25s, border-color 0.25s;
+  }
 
-/* 📱 Mobile fix */
-@media (max-width: 768px) {
-    .gallery-4 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+  .gallery-4 img:hover {
+    transform: scale(1.02);
+    border-color: var(--border-bright);
+  }
+
+  @media (max-width: 600px) {
+    .gallery-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ─── ABOUT ─── */
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px;
+  }
+
+  .about-card p {
+    font-size: 16px;
+    line-height: 1.85;
+    color: #3a4a60;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact-section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 24px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-section h2 {
+    font-family: var(--heading-font);
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #0f1a2e 0%, #1a5fd4 60%, #0a9e6e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 32px;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 14px 28px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    background: rgba(99,179,255,0.06);
+  }
+
+  .contact-icon {
+    width: 18px;
+    height: 18px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.7s ease both;
+  }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
-    <img src="profile.jpeg" class="profile-pic">
-
-    <h1>Kassem Abboud</h1>
-    <p class="subtitle">Software Developer</p>
+  <img src="profile.jpeg" class="profile-pic" alt="Kassem Abboud">
+  <h1>Kassem Abboud</h1>
+  <p class="subtitle">Software Developer</p>
 </header>
 
-<div class="section">
-    <h2>About Me</h2>
-    <div class="card">
-        <p>
-            Software developer with strong experience in mobile and backend development.
-            I specialize in building real-world systems including POS solutions, mobile apps,
-            and scalable APIs using C#, Flutter, Node.js, and SQL Server.
-        </p>
+<!-- ABOUT -->
+<div class="container">
+  <section>
+    <div class="section-label"><span>About</span></div>
+    <div class="about-card">
+      <p>
+        Software developer with strong experience in mobile and backend development.
+        I specialize in building real-world systems including POS solutions, mobile apps,
+        and scalable APIs using C#, Flutter, Node.js, and SQL Server.
+      </p>
     </div>
-</div>
+  </section>
 
-<div class="section">
-    <h2>Skills</h2>
-    <div class="card">
-        <ul>
-            <li>Flutter, C#, .NET</li>
-            <li>Node.js, REST APIs</li>
-            <li>SQL Server, Firebase</li>
-            <li>Swift, Java (basic)</li>
-	    <li>n8n Automation</li>
-            <li>IT Solutions</li>
-        </ul>
+  <!-- SKILLS -->
+  <section>
+    <div class="section-label"><span>Skills</span></div>
+    <div class="skills-grid">
+      <span class="skill-tag">Flutter</span>
+      <span class="skill-tag">C#</span>
+      <span class="skill-tag">.NET</span>
+      <span class="skill-tag">Node.js</span>
+      <span class="skill-tag">REST APIs</span>
+      <span class="skill-tag">SQL Server</span>
+      <span class="skill-tag">Firebase</span>
+      <span class="skill-tag">Swift</span>
+      <span class="skill-tag">Java (basic)</span>
+      <span class="skill-tag">n8n Automation</span>
+      <span class="skill-tag">IT Solutions</span>
     </div>
-</div>
+  </section>
 
-<div class="section">
-    <h2>Experience</h2>
-
-    <div class="card">
-        <h3>Freelancer Developer (2017 - 2026)</h3>
-        <ul>
-            <li>Built mobile apps using Flutter, Java and Swift</li>
-	    <li>Built windows apps using C#</li>
-            <li>Designed REST APIs using Node.js and .NET</li>
-            <li>Backend using SQL Server databases and Firebase</li>
-        </ul>
+  <!-- EXPERIENCE -->
+  <section>
+    <div class="section-label"><span>Experience</span></div>
+    <div class="exp-card">
+      <h3>Freelancer Developer (2017 - 2026)</h3>
+      <ul>
+        <li>Built mobile apps using Flutter, Java and Swift</li>
+        <li>Built windows apps using C#</li>
+        <li>Designed REST APIs using Node.js and .NET</li>
+        <li>Backend using SQL Server databases and Firebase</li>
+      </ul>
     </div>
+  </section>
 
-</div>
+  <!-- PROJECTS -->
+  <section>
+    <div class="section-label"><span>Projects</span></div>
 
-<div class="section">
-    <h2>Projects</h2>
-
-    <div class="card">
+    <!-- MMM POS -->
+    <div class="project-card">
+      <div class="project-header">
         <h3>MMM POS System</h3>
-	<p>Advanced POS system for managing sales, inventory, invoices, customers, and financial operations in real time.<br>
-	Integrated with thermal printers, barcode systems, NFC solutions, and SQL Server for high-performance business management.
-	</p>
-        <video width="100%" controls>
+        <span class="project-number">01</span>
+      </div>
+      <p>Advanced POS system for managing sales, inventory, invoices, customers, and financial operations in real time.<br>
+      Integrated with thermal printers, barcode systems, NFC solutions, and SQL Server for high-performance business management.</p>
+      <video controls>
         <source src="demo.mp4" type="video/mp4">
-        </video>
+      </video>
     </div>
 
-    <div class="card">
+    <!-- n8n -->
+    <div class="project-card">
+      <div class="project-header">
         <h3>n8n Projects</h3>
-	<p>Built intelligent automation systems using n8n to connect WhatsApp, Telegram, and SQL Server databases for real-time business operations.<br>
-         Implemented chat and voice-based interactions to retrieve account statements, product prices, reports, and customer information automatically.</p>
-	<video class="small-phone-video" controls>
-  	  <source src="w.mp4" type="video/mp4">
-	</video>
+        <span class="project-number">02</span>
+      </div>
+      <p>Built intelligent automation systems using n8n to connect WhatsApp, Telegram, and SQL Server databases for real-time business operations.<br>
+      Implemented chat and voice-based interactions to retrieve account statements, product prices, reports, and customer information automatically.</p>
+      <video class="small-phone-video" controls>
+        <source src="w.mp4" type="video/mp4">
+      </video>
     </div>
 
-
-    <div class="card">
+    <!-- Meditel -->
+    <div class="project-card">
+      <div class="project-header">
         <h3>Meditel</h3>
-        <p>Description: It is a special phone application for internet distributors through which invoices can be issued and printed and collected through a number of collectors.</p>
-        <p>Tools Used: Sql Server for backend,dotnet for APIs,Flutter for Frontend ,</p>
-
-        <div class="gallery-4">
-            <img src="m1.jpg">
-            <img src="m2.jpg">
-            <img src="m3.jpg">
-            <img src="m4.jpg">
-        </div>
+        <span class="project-number">03</span>
+      </div>
+      <p>It is a special phone application for internet distributors through which invoices can be issued and printed and collected through a number of collectors.</p>
+      <span class="tools-badge">SQL Server · .NET · Flutter</span>
+      <div class="gallery-4">
+        <img src="m1.jpg" alt="Meditel screenshot 1">
+        <img src="m2.jpg" alt="Meditel screenshot 2">
+        <img src="m3.jpg" alt="Meditel screenshot 3">
+        <img src="m4.jpg" alt="Meditel screenshot 4">
+      </div>
     </div>
 
-    <div class="card">
+    <!-- MT Trading -->
+    <div class="project-card">
+      <div class="project-header">
         <h3>MT Trading</h3>
-        <p>It is a special phone application for trading office manage customer account departments and following up the movement of funds.</p>
-        <p>Tools Used: Sql Server for backend,dotnet for APIs,Flutter for Frontend</p>
-	<div class="gallery-4">
-            <img src="mt1.jpg">
-            <img src="mt2.jpg">
-            <img src="mt3.jpg">
-            <img src="mt4.jpg">
-        </div>
+        <span class="project-number">04</span>
+      </div>
+      <p>It is a special phone application for trading office manage customer account departments and following up the movement of funds.</p>
+      <span class="tools-badge">SQL Server · .NET · Flutter</span>
+      <div class="gallery-4">
+        <img src="mt1.jpg" alt="MT Trading screenshot 1">
+        <img src="mt2.jpg" alt="MT Trading screenshot 2">
+        <img src="mt3.jpg" alt="MT Trading screenshot 3">
+        <img src="mt4.jpg" alt="MT Trading screenshot 4">
+      </div>
     </div>
 
-    <div class="card">
+    <!-- ISC Alpha -->
+    <div class="project-card">
+      <div class="project-header">
         <h3>ISC Alpha</h3>
-        <p>It is a mobile application connected to an accounting program developed by ISC, through which it is possible to follow up on stores and invoices, and to send an account statement via WhatsApp.</p>
-        <p>Tools Used: Sql Server for backend,nodeJs for APIs,Flutter for Frontend</p>
-	<div class="gallery-4">
-            <img src="a1.jpg">
-            <img src="a2.jpg">
-            <img src="a3.jpg">
-            <img src="a4.jpg">
-        </div>
+        <span class="project-number">05</span>
+      </div>
+      <p>It is a mobile application connected to an accounting program developed by ISC, through which it is possible to follow up on stores and invoices, and to send an account statement via WhatsApp.</p>
+      <span class="tools-badge">SQL Server · Node.js · Flutter</span>
+      <div class="gallery-4">
+        <img src="a1.jpg" alt="ISC Alpha screenshot 1">
+        <img src="a2.jpg" alt="ISC Alpha screenshot 2">
+        <img src="a3.jpg" alt="ISC Alpha screenshot 3">
+        <img src="a4.jpg" alt="ISC Alpha screenshot 4">
+      </div>
     </div>
 
-    <div class="card">
+    <!-- ISC Power -->
+    <div class="project-card">
+      <div class="project-header">
         <h3>ISC Power</h3>
-        <p>Organizing the input of electricity and tax meter information through cloud service.</p>
-        <p>Tools Used: Sql Server for backend,nodejs for APIs,Flutter for Frontend</p>
-	<div class="gallery-4">
-            <img src="e1.jpg">
-            <img src="e2.jpg">
-            <img src="e3.jpg">
-            <img src="e4.jpg">
-        </div>
+        <span class="project-number">06</span>
+      </div>
+      <p>Organizing the input of electricity and tax meter information through cloud service.</p>
+      <span class="tools-badge">SQL Server · Node.js · Flutter</span>
+      <div class="gallery-4">
+        <img src="e1.jpg" alt="ISC Power screenshot 1">
+        <img src="e2.jpg" alt="ISC Power screenshot 2">
+        <img src="e3.jpg" alt="ISC Power screenshot 3">
+        <img src="e4.jpg" alt="ISC Power screenshot 4">
+      </div>
     </div>
 
-    <div class="card">
+    <!-- MNE -->
+    <div class="project-card">
+      <div class="project-header">
         <h3>MNE App</h3>
-        <p>It is a mobile applicationfor mobile and accessories shop manage sales,debts , quantities of items and send sms for all clients .</p>
-        <p>Tools Used: Firebase for backend,nodejs for APIs,Flutter for Frontend</p>
-	<div class="gallery-4">
-            <img src="mn1.jpg">
-            <img src="mn2.jpg">
-            <img src="mn3.jpg">
-            <img src="mn1.jpg">
-        </div>
+        <span class="project-number">07</span>
+      </div>
+      <p>It is a mobile application for mobile and accessories shop manage sales, debts, quantities of items and send sms for all clients.</p>
+      <span class="tools-badge">Firebase · Node.js · Flutter</span>
+      <div class="gallery-4">
+        <img src="mn1.jpg" alt="MNE screenshot 1">
+        <img src="mn2.jpg" alt="MNE screenshot 2">
+        <img src="mn3.jpg" alt="MNE screenshot 3">
+        <img src="mn1.jpg" alt="MNE screenshot 4">
+      </div>
     </div>
 
-    <div class="card">
+    <!-- Sparrow Caffe -->
+    <div class="project-card">
+      <div class="project-header">
         <h3>Sparrow Caffe</h3>
-        <p>It is a Web application for small caffe shop manage sales,orders and tables .</p>
-        <p>Tools Used: Firebase for backend and flutter for Frontend</p>
-	<p>https://caffe-38150.web.app/ test user pass:123456 .</p>
+        <span class="project-number">08</span>
+      </div>
+      <p>It is a Web application for small caffe shop manage sales, orders and tables.</p>
+      <span class="tools-badge">Firebase · Flutter</span>
+      <p>https://caffe-38150.web.app/ &nbsp;·&nbsp; test user pass: 123456</p>
     </div>
 
-    <div class="card">
+    <!-- Zawtar -->
+    <div class="project-card">
+      <div class="project-header">
         <h3>Zawtar App</h3>
-        <p>It is a mobile application for latest news of my village zawtar with push nofifications ,published to play store and apple store .</p>
-        <p>Tools Used:firebase for backend ,swift for ios ,java for android.</p>
-	<div class="gallery-4">
-            <img src="z1.jpg">
-            <img src="z2.jpg">
-            <img src="z3.jpg">
-            <img src="z4.jpg">
-        </div>
+        <span class="project-number">09</span>
+      </div>
+      <p>It is a mobile application for latest news of my village zawtar with push notifications, published to play store and apple store.</p>
+      <span class="tools-badge">Firebase · Swift · Java</span>
+      <div class="gallery-4">
+        <img src="z1.jpg" alt="Zawtar screenshot 1">
+        <img src="z2.jpg" alt="Zawtar screenshot 2">
+        <img src="z3.jpg" alt="Zawtar screenshot 3">
+        <img src="z4.jpg" alt="Zawtar screenshot 4">
+      </div>
     </div>
 
+  </section>
 </div>
 
-<div class="contact">
-    <h2>Contact</h2>
-    <p>Email: abboudkassem1@gmail.com</p>
-    <p>Phone: 70385816</p>
+<!-- CONTACT -->
+<div class="contact-section">
+  <h2>Get in Touch</h2>
+  <div class="contact-links">
+    <a href="mailto:abboudkassem1@gmail.com" class="contact-link">
+      <svg class="contact-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      abboudkassem1@gmail.com
+    </a>
+    <a href="tel:70385816" class="contact-link">
+      <svg class="contact-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.08 12a19.79 19.79 0 0 1-3-8.57A2 2 0 0 1 3 1.5h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      70385816
+    </a>
+  </div>
 </div>
+
+<script>
+  // Staggered scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationDelay = (i * 0.07) + 's';
+        entry.target.classList.add('fade-up');
+        entry.target.style.opacity = '';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card, .card, .exp-card, .about-card, .skill-tag').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+  });
+</script>
 
 </body>
 </html>

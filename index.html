@@ -34,28 +34,6 @@ body {
   color: var(--text);
   line-height: 1.7;
   overflow-x: hidden;
-  cursor: none;
-}
-
-/* Custom cursor */
-.cursor {
-  position: fixed;
-  width: 10px; height: 10px;
-  background: var(--gold);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.15s ease, opacity 0.2s;
-  mix-blend-mode: difference;
-}
-.cursor-ring {
-  position: fixed;
-  width: 36px; height: 36px;
-  border: 1px solid rgba(240,192,64,0.4);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transition: all 0.12s ease;
 }
 
 /* Grain overlay */
@@ -228,9 +206,10 @@ body::before {
 }
 
 .profile-frame {
-  width: 320px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   position: relative;
+  border-radius: 50%;
 }
 
 .profile-frame img {
@@ -239,24 +218,10 @@ body::before {
   object-fit: cover;
   object-position: top;
   display: block;
+  border-radius: 50%;
   filter: grayscale(20%) contrast(1.05);
-}
-
-.profile-frame::before {
-  content: '';
-  position: absolute;
-  inset: -12px -12px 12px 12px;
-  border: 1px solid var(--gold2);
-  z-index: -1;
-  opacity: 0.4;
-}
-
-.profile-frame::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 40%;
-  background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+  border: 3px solid var(--gold2);
+  outline: 8px solid rgba(240,192,64,0.08);
 }
 
 .stats-strip {
@@ -773,9 +738,6 @@ footer {
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
-
 <!-- ─── HERO ─── -->
 <section class="hero">
   <div class="hero-left">
@@ -883,6 +845,19 @@ footer {
           <li>Built Windows desktop apps using C#</li>
           <li>Designed REST APIs using Node.js and .NET</li>
           <li>Backend systems with SQL Server and Firebase</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-year">10+ Years</div>
+      <div>
+        <div class="exp-role">IT Solutions — Ward Company</div>
+        <ul class="exp-list">
+          <li>Managed and maintained the company's full IT infrastructure</li>
+          <li>Provided technical support and troubleshooting across departments</li>
+          <li>Oversaw network setup, hardware, and software systems</li>
+          <li>Implemented and maintained internal business solutions</li>
         </ul>
       </div>
     </div>
@@ -1093,6 +1068,11 @@ footer {
           <span class="c-label">+961 70 385 816</span>
           <span class="c-sublabel">Phone</span>
         </a>
+        <a href="https://wa.me/96170385816" target="_blank" class="contact-link">
+          <svg class="c-icon" viewBox="0 0 24 24" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.997 2C6.477 2 2 6.477 2 12c0 1.89.525 3.659 1.438 5.168L2 22l4.978-1.413A9.956 9.956 0 0011.997 22C17.522 22 22 17.523 22 12c0-5.522-4.478-10-10.003-10z" stroke-width="0" fill="currentColor" opacity="0.15"/><path d="M11.997 2C6.477 2 2 6.477 2 12c0 1.89.525 3.659 1.438 5.168L2 22l4.978-1.413A9.956 9.956 0 0011.997 22C17.522 22 22 17.523 22 12c0-5.522-4.478-10-10.003-10z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="c-label">WhatsApp</span>
+          <span class="c-sublabel">+961 70 385 816</span>
+        </a>
       </div>
     </div>
   </div>
@@ -1105,36 +1085,6 @@ footer {
 </footer>
 
 <script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx - 5 + 'px';
-    cursor.style.top = my - 5 + 'px';
-  });
-
-  (function animRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx - 18 + 'px';
-    ring.style.top = ry - 18 + 'px';
-    requestAnimationFrame(animRing);
-  })();
-
-  document.querySelectorAll('a, button, .skill-pill').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'scale(2.5)';
-      ring.style.transform = 'scale(1.4)';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.transform = 'scale(1)';
-      ring.style.transform = 'scale(1)';
-    });
-  });
-
   // Toggle project media
   function toggleProject(btn) {
     const row = btn.closest('.proj-row');

@@ -210,18 +210,20 @@ body::before {
   height: 300px;
   position: relative;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .profile-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
+  object-position: top center;
   display: block;
   border-radius: 50%;
   filter: grayscale(20%) contrast(1.05);
   border: 3px solid var(--gold2);
   outline: 8px solid rgba(240,192,64,0.08);
+  transform: scale(1.6) translateY(10%);
 }
 
 .stats-strip {
@@ -811,7 +813,7 @@ footer {
       <div class="skills-intro reveal">
         <div class="section-tag">Expertise</div>
         <h2 class="section-heading">Tech Stack</h2>
-        <p>Full-stack capability from mobile to server, built through years of real-world projects and client solutions.</p>
+        <p>Full-stack capability from mobile to server and Windows desktop, built through years of real-world projects and client solutions.</p>
       </div>
       <div class="skills-list reveal">
         <span class="skill-pill">Flutter</span>
@@ -1013,7 +1015,7 @@ footer {
         <div class="proj-num">08</div>
         <div>
           <div class="proj-title">Sparrow Caffe</div>
-          <div class="proj-desc">Web application for a small café — manage sales, orders, and tables. Live at caffe-38150.web.app (test user pass: 123456).</div>
+          <div class="proj-desc">Web application for a small café — manage sales, orders, and tables. Live at <a href="https://caffe-38150.web.app/" target="_blank" style="color: var(--gold); text-decoration: underline; text-underline-offset: 3px;">caffe-38150.web.app</a> &nbsp;·&nbsp; test user pass: z87654321</div>
         </div>
         <div class="proj-stack">
           <span class="stack-tag">Flutter Web</span>
